@@ -128,8 +128,8 @@ export default class FormFieldComponent extends Component {
   }
   @action
   setAndBroadcast(value) {
-    this.args.model.set(this.valuePath, value);
-    this.onChange(this.valuePath, value);
+    this.args.model.set(this.valuePath, value?.trim());
+    this.onChange(this.valuePath, value?.trim());
   }
   @action
   setAndBroadcastBool(trueVal, falseVal, event) {

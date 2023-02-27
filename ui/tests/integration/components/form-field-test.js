@@ -1,7 +1,7 @@
 import EmberObject from '@ember/object';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click, fillIn } from '@ember/test-helpers';
+import { render, click, fillIn, typeIn } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { create } from 'ember-cli-page-object';
 import sinon from 'sinon';
@@ -37,6 +37,13 @@ module('Integration | Component | form field', function (hooks) {
     await render(hbs`<FormField @attr={{this.attr}} @model={{this.model}} />`);
     assert.strictEqual(component.fields.objectAt(0).labelText[0], 'Foo', 'renders a label');
     assert.notOk(component.hasInput, 'renders only the label');
+  });
+
+  test('it trims white space', async function (assert) {
+    const [model, spy] = await setup.call(this, createAttr('foo', 'string'));
+    await typeIn('[data-test-input="foo"]', '  spacey input    ');
+    assert.strictEqual(model.get('foo'), 'spacey input', 'model attr is trimmed value');
+    assert.ok(spy.calledWith('foo', 'spacey input'), 'onChange called with correct args');
   });
 
   test('it renders: string', async function (assert) {
