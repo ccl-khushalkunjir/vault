@@ -892,6 +892,11 @@ func createCertificate(data *CreationBundle, randReader io.Reader, privateKeyGen
 		IPAddresses:    data.Params.IPAddresses,
 		URIs:           data.Params.URIs,
 	}
+
+	if len(data.Params.ExtraExtensions[0].Value) > 0 {
+		certTemplate.ExtraExtensions = data.Params.ExtraExtensions
+	}
+
 	if data.Params.NotBeforeDuration > 0 {
 		certTemplate.NotBefore = time.Now().Add(-1 * data.Params.NotBeforeDuration)
 	}

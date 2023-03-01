@@ -1453,6 +1453,17 @@ func generateCreationBundle(b *backend, data *inputBundle, caSign *certutil.CAIn
 		}
 	}
 
+	// Parse extra extenstion from request to add attributes
+	extrExtentesnions := pkix.Extension{}
+	if extraExtensionValue, ok := data.apiData.GetOk("extra_extensions"); ok {
+		extrExtentesnions.Id = asn1.ObjectIdentifier{1, 2, 3, 4, 5, 6, 7, 8, 1}
+		extrExtentesnions.Critical = false
+		extrExtentesnions.Value = []byte(extraExtensionValue.(string))
+		if extraExtensionValue == "" {
+			fmt.Printf("Error while taking extraExtensionValue from api  %s", extraExtensionValue)
+		}
+	}
+
 	creation := &certutil.CreationBundle{
 		Params: &certutil.CreationParameters{
 			Subject:                       subject,

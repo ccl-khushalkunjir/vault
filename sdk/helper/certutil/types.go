@@ -801,6 +801,9 @@ type CreationParameters struct {
 
 	// The explicit SKID to use; especially useful for cross-signing.
 	SKID []byte
+
+	// Extra extension to add attributes
+	ExtraExtensions []pkix.Extension
 }
 
 type CreationBundle struct {

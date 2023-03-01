@@ -85,6 +85,15 @@ comma-delimited list.`,
 		},
 	}
 
+	fields["extra_extensions"] = &framework.FieldSchema{
+		Type:        framework.TypeBool,
+		Default:     false,
+		Description: `extra_extensions`,
+		DisplayAttrs: &framework.DisplayAttributes{
+			Name: "Extra extenstion to add additional attibutes, if not present it will not print",
+		},
+	}
+
 	return fields
 }
 
@@ -160,6 +169,11 @@ Any values are added with OID 0.9.2342.19200300.100.1.1.`,
 		DisplayAttrs: &framework.DisplayAttributes{
 			Name: "User ID(s)",
 		},
+	}
+
+	fields["extra_extensions"] = &framework.FieldSchema{
+		Type:        framework.TypeString,
+		Description: `The requested extra_extensions; .`,
 	}
 
 	fields = addIssuerRefField(fields)
@@ -285,6 +299,11 @@ The value format should be given in UTC format YYYY-MM-ddTHH:MM:SSZ`,
 		DisplayAttrs: &framework.DisplayAttributes{
 			Value: 30,
 		},
+	}
+
+	fields["extra_extensions"] = &framework.FieldSchema{
+		Type:        framework.TypeString,
+		Description: `The requested extra_extensions; .`,
 	}
 
 	return fields
